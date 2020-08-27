@@ -34,29 +34,29 @@ public class Application {
         prioriteitsVoertuigen = new Queue();
         reversePrioriteitsVoertuigen = new Queue();
         reversePlayback = new LinkStack();
-        while (noord.getVoertuigen().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = noord.getVoertuigen().remove();
+        while (noord.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = noord.getVoertuigenQueue().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
             reversePlayback.push(voertuig);
         }
 
-        while (zuid.getVoertuigen().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = zuid.getVoertuigen().remove();
+        while (zuid.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = zuid.getVoertuigenQueue().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
             reversePlayback.push(voertuig);
         }
 
-        while (oost.getVoertuigen().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = oost.getVoertuigen().remove();
+        while (oost.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = oost.getVoertuigenQueue().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
             reversePlayback.push(voertuig);
         }
 
-        while (west.getVoertuigen().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = west.getVoertuigen().remove();
+        while (west.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = west.getVoertuigenQueue().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
             reversePlayback.push(voertuig);
@@ -96,10 +96,10 @@ public class Application {
         start.priorityQueInit();
         int count=0;
 
-        while(!noord.getVoertuigen().isEmpty()
-                || !zuid.getVoertuigen().isEmpty()
-                || !oost.getVoertuigen().isEmpty()
-                || !west.getVoertuigen().isEmpty()){
+        while(!noord.getVoertuigenQueue().isEmpty()
+                || !zuid.getVoertuigenQueue().isEmpty()
+                || !oost.getVoertuigenQueue().isEmpty()
+                || !west.getVoertuigenQueue().isEmpty()){
 
             start.prioVoertuigOprijden();
             start.rijRonde();
