@@ -70,18 +70,18 @@ public class Service {
         return linkList;
     }
     public Wegdek oprijden(Wegdek wegdek){
-        int times = wegdek.getVoertuigen().getCount();
-        switch (wegdek.getName()) {
+        int times = wegdek.getVoertuigenQueue().getCount();
+        switch (wegdek.getWegdekCode()) {
             case "O":
                 System.out.println("~~~~~~~~~GROENLICHT Wegdek Oost! de voertuigen mogen oprijden~~~~~~~~~");
-                if (wegdek.getVoertuigen().isEmpty()) {
+                if (wegdek.getVoertuigenQueue().isEmpty()) {
                     System.out.println("Sensor Oost treed in werking! Beurt overgeslagen \n");
                     break;
                 }else {
                     for(int x = 0; x < 5;x++){
-                        if(wegdek.getVoertuigen().peekFirst() != null) {
-                            System.out.println("Voertuig " + wegdek.getVoertuigen().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigen().peekFirst().getKentNumr() + " rijdt op.");
-                            wegdek.getReverseVoertuigen().push(wegdek.getVoertuigen().remove());
+                        if(wegdek.getVoertuigenQueue().peekFirst() != null) {
+                            System.out.println("Voertuig " + wegdek.getVoertuigenQueue().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigenQueue().peekFirst().getKentNumr() + " rijdt op.");
+                            wegdek.getReverseVoertuigen().push(wegdek.getVoertuigenQueue().remove());
                         }
                     }
                 }
@@ -89,23 +89,23 @@ public class Service {
                 break;
             case "Z":
                 System.out.println("~~~~~~~~~GROENLICHT Wegdek Zuid! de voertuigen mogen oprijden~~~~~~~~~");
-                if (wegdek.getVoertuigen().isEmpty()) {
+                if (wegdek.getVoertuigenQueue().isEmpty()) {
                     System.out.println("Wegdek Zuid is leeg");
                     break;
                 }
 
-                if (wegdek.getVoertuigen().getCount() > 10) {
+                if (wegdek.getVoertuigenQueue().getCount() > 10) {
                     System.out.println("Wegdek Zuid telt meer dan 10 voertuigen \n");
                     times = 10;
                 }
-                else if (wegdek.getVoertuigen().getCount() >= 5) {
+                else if (wegdek.getVoertuigenQueue().getCount() >= 5) {
                     times = 5;
                 }
 
                 for (int x = 0; x < times; x++) {
-                    if(wegdek.getVoertuigen().peekFirst() != null) {
-                        System.out.println("Voertuig " + wegdek.getVoertuigen().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigen().peekFirst().getKentNumr() + " rijdt op.");
-                        wegdek.getReverseVoertuigen().push(wegdek.getVoertuigen().remove());
+                    if(wegdek.getVoertuigenQueue().peekFirst() != null) {
+                        System.out.println("Voertuig " + wegdek.getVoertuigenQueue().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigenQueue().peekFirst().getKentNumr() + " rijdt op.");
+                        wegdek.getReverseVoertuigen().push(wegdek.getVoertuigenQueue().remove());
                     }
                 }
 
@@ -114,23 +114,23 @@ public class Service {
 
             case "W":
                 System.out.println("~~~~~~~~~GROENLICHT Wegdek West mag oprijden~~~~~~~~~");
-                if (wegdek.getVoertuigen().isEmpty()) {
+                if (wegdek.getVoertuigenQueue().isEmpty()) {
                     System.out.println("Wegdek West is leeg \n");
                     break;
                 }
 
-                if (wegdek.getVoertuigen().getCount() > 10) {
+                if (wegdek.getVoertuigenQueue().getCount() > 10) {
                     //System.out.println("Er zijn meer dan 10 voertuigen aanwezig in West!");
                     times = 10;
                 }
-                else if (wegdek.getVoertuigen().getCount() >= 5) {
+                else if (wegdek.getVoertuigenQueue().getCount() >= 5) {
                     times = 5;
                 }
 
                 for (int x = 0; x < times; x++) {
-                    if(wegdek.getVoertuigen().peekFirst() != null) {
-                        System.out.println("Voertuig " + wegdek.getVoertuigen().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigen().peekFirst().getKentNumr() + " rijdt op.");
-                        wegdek.getReverseVoertuigen().push(wegdek.getVoertuigen().remove());
+                    if(wegdek.getVoertuigenQueue().peekFirst() != null) {
+                        System.out.println("Voertuig " + wegdek.getVoertuigenQueue().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigenQueue().peekFirst().getKentNumr() + " rijdt op.");
+                        wegdek.getReverseVoertuigen().push(wegdek.getVoertuigenQueue().remove());
                     }
                 }
 
@@ -139,14 +139,14 @@ public class Service {
 
             case "N":
                 System.out.println("~~~~~~~~~GROENLICHR Wegdek Noord mag oprijden~~~~~~~~~");
-                if (wegdek.getVoertuigen().isEmpty()) {
+                if (wegdek.getVoertuigenQueue().isEmpty()) {
                     System.out.println("Wegdek Noord is leeg \n");
                     break;
                 }else{
                     for(int x = 0; x < 5;x++){
-                        if(wegdek.getVoertuigen().peekFirst() != null) {
-                            System.out.println("Voertuig " + wegdek.getVoertuigen().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigen().peekFirst().getKentNumr() + " rijdt op.");
-                            wegdek.getReverseVoertuigen().push(wegdek.getVoertuigen().remove());
+                        if(wegdek.getVoertuigenQueue().peekFirst() != null) {
+                            System.out.println("Voertuig " + wegdek.getVoertuigenQueue().peekFirst().getAutoNumr() + " Kenteken nummer : "+ wegdek.getVoertuigenQueue().peekFirst().getKentNumr() + " rijdt op.");
+                            wegdek.getReverseVoertuigen().push(wegdek.getVoertuigenQueue().remove());
                         }
                     }
                 }
