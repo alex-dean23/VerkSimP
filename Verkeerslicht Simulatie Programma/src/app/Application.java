@@ -2,8 +2,6 @@ package app;
 
 import dstructures.LinkStack;
 import dstructures.Queue;
-import dstructures.Stack;
-import model.Afkomst;
 import model.Voertuig;
 import model.Wegdek;
 import service.Service;
@@ -18,14 +16,13 @@ public class Application {
     static Wegdek west;
     static Queue prioriteitsVoertuigen;
     static Queue reversePrioriteitsVoertuigen;
-    static Stack reversePlayback;
+    static LinkStack reversePlayback;
 
     public void init() {
         Queue voertuigQueN = new Queue(service.insertNoord());
         Queue voertuigQueZ = new Queue(service.insertZuid());
         Queue voertuigQueO = new Queue(service.insertOost());
         Queue voertuigQueW = new Queue(service.insertWest());
-
 
         noord = new Wegdek(voertuigQueN, "N");
         zuid = new Wegdek(voertuigQueZ, "Z");
@@ -36,33 +33,33 @@ public class Application {
     public void priorityQueInit() {
         prioriteitsVoertuigen = new Queue();
         reversePrioriteitsVoertuigen = new Queue();
-        reversePlayback = new Stack();
-        while (noord.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = noord.getVoertuigenQueue().remove();
+        reversePlayback = new LinkStack();
+        while (noord.getVoertuigen().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = noord.getVoertuigen().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
-            reversePlayback.push(new Afkomst(noord, voertuig));
+            reversePlayback.push(voertuig);
         }
 
-        while (zuid.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = zuid.getVoertuigenQueue().remove();
+        while (zuid.getVoertuigen().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = zuid.getVoertuigen().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
-            reversePlayback.push(new Afkomst(zuid, voertuig));
+            reversePlayback.push(voertuig);
         }
 
-        while (oost.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = oost.getVoertuigenQueue().remove();
+        while (oost.getVoertuigen().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = oost.getVoertuigen().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
-            reversePlayback.push(new Afkomst(oost, voertuig));
+            reversePlayback.push(voertuig);
         }
 
-        while (west.getVoertuigenQueue().peekFirst().getPrNumr() < 3) {
-            Voertuig voertuig = west.getVoertuigenQueue().remove();
+        while (west.getVoertuigen().peekFirst().getPrNumr() < 3) {
+            Voertuig voertuig = west.getVoertuigen().remove();
             prioriteitsVoertuigen.insert(voertuig);
             reversePrioriteitsVoertuigen.insert(voertuig);
-            reversePlayback.push(new Afkomst(west, voertuig));
+            reversePlayback.push(voertuig);
         }
     }
 
@@ -93,32 +90,16 @@ public class Application {
         west = service.oprijden(west);
     }
 
-    public void playBack() throws Exception {
-        while(!reversePlayback.isStackEmpty()){
-            Afkomst afkomst = reversePlayback.pop();
-            Wegdek wegdek = afkomst.getWegdek();
-            Voertuig voertuig = afkomst.getVoertuig();
-            //Hierzo insert je de voertuig terug in de wegdek. Precies zoals je ze in het begin hebt gedaan toen je de auto's aanmaakte en op de straten plaatste
-            //Voorbeeld
-            //wegdek.insert(voertuig); // wegdek kan bijvoorbeeld zijn oost, west, zuid of noord.
-            //of wegdek.enqueue(voertuig)
-            //je kan loopen er over , zoals dit
-
-
-            System.out.println("voertuig " + voertuig.toString() + " gaat terug in " + wegdek.toString());
-        }
-    }
-
     public static void main(String[] args) {
         Application start = new Application();
         start.init();
         start.priorityQueInit();
         int count=0;
 
-        while(!noord.getVoertuigenQueue().isEmpty()
-                || !zuid.getVoertuigenQueue().isEmpty()
-                || !oost.getVoertuigenQueue().isEmpty()
-                || !west.getVoertuigenQueue().isEmpty()){
+        while(!noord.getVoertuigen().isEmpty()
+                || !zuid.getVoertuigen().isEmpty()
+                || !oost.getVoertuigen().isEmpty()
+                || !west.getVoertuigen().isEmpty()){
 
             start.prioVoertuigOprijden();
             start.rijRonde();
@@ -141,5 +122,8 @@ public class Application {
                 reversePrioriteitsVoertuigen.remove();
             }
         }
+        reversePlayback.pop();
+
+
     }
 }
