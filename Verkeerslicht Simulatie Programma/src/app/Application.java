@@ -93,7 +93,7 @@ public class Application {
         west = service.oprijden(west);
     }
 
-    public void playBack(){
+    public void playBack() throws Exception {
         while(!reversePlayback.isStackEmpty()){
             Afkomst afkomst = reversePlayback.pop();
             Wegdek wegdek = afkomst.getWegdek();
@@ -104,7 +104,7 @@ public class Application {
             //of wegdek.enqueue(voertuig)
             //je kan loopen er over , zoals dit
 
-           
+
             System.out.println("voertuig " + voertuig.toString() + " gaat terug in " + wegdek.toString());
         }
     }
